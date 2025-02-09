@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Gallery</title>
+    <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .bg {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        .project-link {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        .project-link:hover {
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .fade-out {
+            animation: fadeOut 1s ease-out forwards;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            display: block;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .gallery-content {
+            padding: 15px;
+        }
+
+        .gallery-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .gallery-description {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .gallery-date {
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div style="text-align: left; margin-bottom: 20px;">
+            <a href="index.html" class="project-link" onclick="fadeOutAndNavigate(event, 'index.html')">← Back to Portfolio</a>
+        </div>
+
+        <h1>📸 My Gallery</h1>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="images/15Juli2017.jpg" alt="15Juli2017">
+                <div class="gallery-content">
+                    <div class="gallery-title">Young Collin</div>
+                    <div class="gallery-description">
+                        This was me when i was 6 years old.
+                    </div>
+                    <div class="gallery-date">15 July 2017</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/1Aug2017.jpg" alt="1Aug2017">
+                <div class="gallery-content">
+                    <div class="gallery-title">Lego</div>
+                    <div class="gallery-description">
+                        I've found the passion for lego.
+                    </div>
+                    <div class="gallery-date">1 August 2017</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/4Aug2017.jpg" alt="4Aug2017">
+                <div class="gallery-content">
+                    <div class="gallery-title">Eating Pancakes with my friend</div>
+                    <div class="gallery-description">
+                        I love pancakes.
+                    </div>
+                    <div class="gallery-date">4 August 2017</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/22Okt2017.jpg" alt="22Okt2017">
+                <div class="gallery-content">
+                    <div class="gallery-title">Lab Dude</div>
+                    <div class="gallery-description">
+                        In a lab suit with my sister.
+                    </div>
+                    <div class="gallery-date">22 October 2017</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/22Dec2018.jpg" alt="22Dec2018">
+                <div class="gallery-content">
+                    <div class="gallery-title">Recording my Nintendo Switch with a phone</div>
+                    <div class="gallery-description">
+                        The Nintendo Switch could only record 30 seconds, so i came up with this.
+                    </div>
+                    <div class="gallery-date">22 December 2018</div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="images/29Nov2020.jpg" alt="29Nov2020">
+                <div class="gallery-content">
+                    <div class="gallery-title">2 Screens</div>
+                    <div class="gallery-description">
+                        I used my TV as a second screen for my old potato laptop.
+                    </div>
+                    <div class="gallery-date">29 December 2020</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fadeOutAndNavigate(event, destination) {
+            event.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = destination;
+            }, 900);
+        }
+
+        window.onload = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+</body>
+</html>

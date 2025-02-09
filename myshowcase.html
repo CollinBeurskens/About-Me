@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrix Showcase</title>
+    <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: black;
+            overflow: hidden;
+            font-family: monospace;
+        }
+
+        #matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: none;
+            border: 2px solid #0F0;
+            color: #0F0;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #0F0;
+            color: black;
+            box-shadow: 0 0 20px #0F0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    <a href="index.html" class="back-button">← Back</a>
+
+    <script>
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        // Matrix characters
+        const chars = '01';
+        const fontSize = 14;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = new Array(columns).fill(1);
+        
+        // Set initial style
+        ctx.font = fontSize + 'px monospace';
+
+        function draw() {
+            // Semi-transparent black to create fade effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Green text
+            ctx.fillStyle = '#0F0';
+
+            // Draw characters
+            for (let i = 0; i < drops.length; i++) {
+                // Random character
+                const char = chars[Math.floor(Math.random() * chars.length)];
+                
+                // Draw the character
+                ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+                // Reset position or move drop
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Animate
+        setInterval(draw, 33);
+
+        // Add fade transition for navigation
+        document.querySelector('.back-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.style.opacity = 0;
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 500);
+        });
+
+        // Fade in on load
+        document.body.style.transition = 'opacity 0.5s';
+        document.body.style.opacity = 0;
+        window.onload = () => {
+            document.body.style.opacity = 1;
+        };
+    </script>
+</body>
+</html>

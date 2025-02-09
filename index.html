@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collin's Portfolio</title>
+    <link rel="icon" type="image/x-icon" href="favicons/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+
+        body {
+            animation: none;  /* Remove body fade-in since we'll animate children */
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 300vh; /* Make the page 3x longer */
+            color: #333;
+            position: relative; /* For the overlay */
+        }
+
+        html {
+            min-height: 100vh;
+        }
+
+        .tech-stack img {
+            margin: 5px;
+        }
+
+        .contact-info {
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .music {
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .bg {
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .about-list {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .about-list li:before {
+            content: "• ";
+            color: #3776AB;
+        }
+        .project-link {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 0.2s;
+        }
+
+        .project-link:hover, 
+        .project-link:visited:hover, 
+        .project-link:active:hover {
+            color: #333;
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .project-link:visited, 
+        .project-link:active {
+            color: #333;
+        }
+
+        .fade-out {
+            animation: fadeOut 1s ease-out forwards;
+        }
+
+        h1 {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 0.4s;
+        }
+
+        h3 {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 0.6s;
+        }
+
+        p {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 0.8s;
+        }
+
+        h2, .about-list, .tech-stack, .contact-info {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 1s;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            p, li {
+                font-size: 16px;
+            }
+
+            .tech-stack img {
+                margin: 3px;
+                height: 30px;
+            }
+
+            .bg {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tech-stack {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .tech-stack img {
+                height: 25px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .project-link {
+                font-size: 16px;
+            }
+        }
+
+        .language-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #3776AB;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: background 0.2s ease;
+            z-index: 1000;
+        }
+
+        .language-toggle:hover {
+            background: #2b5d8b;
+        }
+
+        @keyframes waveAndFade {
+            0% { transform: rotate(0deg) scale(1); opacity: 1; }
+            10% { transform: rotate(14deg) scale(1.3); opacity: 1; }
+            20% { transform: rotate(-8deg) scale(1.3); opacity: 1; }
+            30% { transform: rotate(14deg) scale(1.3); opacity: 1; }
+            40% { transform: rotate(-4deg) scale(1.2); opacity: 1; }
+            50% { transform: rotate(10deg) scale(1.1); opacity: 1; }
+            60% { transform: rotate(0deg) scale(1); opacity: 1; }
+            80% { transform: rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: rotate(0deg) scale(1); opacity: 0; }
+        }
+
+        @keyframes justWave {
+            0% { transform: rotate(0deg) scale(1); }
+            10% { transform: rotate(14deg) scale(1.3); }
+            20% { transform: rotate(-8deg) scale(1.3); }
+            30% { transform: rotate(14deg) scale(1.3); }
+            40% { transform: rotate(-4deg) scale(1.2); }
+            50% { transform: rotate(10deg) scale(1.1); }
+            60% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        .wave {
+            display: inline-block;
+            animation: justWave 2.5s ease-in-out;
+            transform-origin: 70% 70%;
+        }
+
+        @keyframes slideLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-24px); }
+        }
+
+        .wave-delayed {
+            display: inline-block;
+            animation: waveAndFade 3s ease-in-out forwards;
+            animation-delay: 1s;
+            transform-origin: 70% 70%;
+            font-size: 0.8em;
+            margin-right: 4px;
+        }
+
+        .slide-after-wave {
+            display: inline-block;
+            animation: slideLeft 0.5s ease-out forwards;
+            animation-delay: 4s;  /* Wave delay (1s) + Wave duration (3s) */
+        }
+
+        @keyframes fadeInWord {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .word {
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInWord 0.5s ease-out forwards;
+        }
+
+        .word-1 { animation-delay: 0.1s; }
+        .word-2 { animation-delay: 0.3s; }
+        .word-3 { animation-delay: 0.5s; }
+        .word-4 { animation-delay: 0.7s; }
+
+        @keyframes fadeInLine {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .about-line {
+            opacity: 0;
+            animation: fadeInLine 0.5s ease-out forwards;
+        }
+
+        .about-line-1 { animation-delay: 1.0s; }
+        .about-line-2 { animation-delay: 1.4s; }
+        .about-line-3 { animation-delay: 1.8s; }
+        .about-line-4 { animation-delay: 2.2s; }
+        .about-line-5 { animation-delay: 2.6s; }
+
+        .darkness-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0);
+            pointer-events: none;
+            transition: background 0.3s ease;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .bottom-message {
+            text-align: center;
+            padding: 40px 0;
+            color: #fff;
+            font-style: italic;
+            opacity: 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px rgba(55, 118, 171, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(55, 118, 171, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(55, 118, 171, 0.5);
+            }
+        }
+
+        .glowing-text {
+            animation: glow 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="darkness-overlay"></div>
+    <div class="content-wrapper">
+        <button class="language-toggle" onclick="toggleLanguage()">Nederlands</button>
+        <div class="bg">
+            <div style="text-align: left; margin-bottom: 20px;">
+                <a href="myprojects.html" class="project-link" onclick="fadeOutAndNavigate(event, 'myprojects.html')">Projects</a>
+                <span style="margin: 0 10px"></span>
+                <a href="myjourney.html" class="project-link" onclick="fadeOutAndNavigate(event, 'myjourney.html')">Journey</a>
+                <span style="margin: 0 10px"></span>
+                <a href="mysocials.html" class="project-link" onclick="fadeOutAndNavigate(event, 'mysocials.html')">Socials</a>
+                <span style="margin: 0 10px"></span>
+                <a href="mypersonality.html" class="project-link" onclick="fadeOutAndNavigate(event, 'mypersonality.html')">Personality</a>
+                <span style="margin: 0 10px"></span>
+                <a href="mygallery.html" class="project-link" onclick="fadeOutAndNavigate(event, 'mygallery.html')">Gallery</a>
+            </div>
+            
+            <h1>
+                <span class="wave">👋</span>
+                <span class="word word-1">Hey</span>
+                <span class="word word-2">there,</span>
+                <span class="word word-3">I'm</span>
+                <span class="word word-4">Collin!</span>
+            </h1>
+        
+            <h3><span class="glowing-text">💻 14-year-old Developer</span> | 🚀 Always Learning | 🎮 Game & Web Dev</h3>
+        
+            <p>Welcome to my portfolio! I'm a young coder passionate about building awesome projects. Whether it's games, websites, or experimenting with new tech, I'm always up for a challenge.</p>
+        
+            <h2><span class="wave-delayed">👋</span><span class="slide-after-wave">🧒 About Me</span></h2>
+            <ul class="about-list">
+                <li class="about-line about-line-1">🌱 Currently learning <strong>Python</strong></li>
+                <li class="about-line about-line-2">🎮 Love making games & web projects</li>
+                <li class="about-line about-line-3">🛠️ Exploring open-source and working on cool side projects</li>
+                <li class="about-line about-line-4">💻 Big fan of <strong>AI, game dev, and creative coding</strong></li>
+                <li class="about-line about-line-5">📅 <strong>More than half a decade</strong> of programming experience</li>
+            </ul>
+
+            <h2>🚀 My Tech Stack</h2>
+            <div class="tech-stack">
+                <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+                <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+                <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+                <img src="https://img.shields.io/badge/Javascript-1572B6?style=for-the-badge&logo=javascript&logoColor=white" alt="JS">
+                <img src="https://img.shields.io/badge/Unreal_Engine_5-1572B6?style=for-the-badge&logo=unrealengine&logoColor=white" alt="UE5">
+            </div>
+
+            <div class="contact-info">
+                <h2>📫 Contact Me</h2>
+                <ul class="about-list">
+                    <li>Discord: @collintje</li>
+                    <li>Personal Email: ikbencollin8@gmail.com</li>
+                    <li>Telegram: @CollinFSC</li>
+                </ul>
+
+                <h3>😌 Languages</h3>
+                <ul class="about-list">
+                    <li>English - Fluent</li>
+                    <li>Dutch - Fluent</li>
+                </ul>
+
+                <h3>🏫 School</h3>
+                <p>Busy with school, so responses may be slower than expected. I'll do my best to reply to messages, thank you for your patience!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-message">There is nothing to see here...</div>
+
+    <script>
+        function fadeOutAndNavigate(event, destination) {
+            event.preventDefault();
+            document.body.classList.add('fade-out');
+            setTimeout(() => {
+                window.location.href = destination;
+            }, 900);
+        }
+
+        function toggleLanguage() {
+            const isEnglish = document.documentElement.lang === 'en';
+            document.documentElement.lang = isEnglish ? 'nl' : 'en';
+            
+            // Update text content
+            const translations = {
+                greeting: {
+                    en: '👋 Hey there, I\'m Collin!',
+                    nl: '👋 Hoi, ik ben Collin!'
+                },
+                subtitle: {
+                    en: '💻 14-year-old Developer | 🚀 Always Learning | 🎮 Game & Web Dev',
+                    nl: '💻 14-jarige Ontwikkelaar | 🚀 Altijd Lerend | 🎮 Game & Web Dev'
+                },
+                welcome: {
+                    en: 'Welcome to my portfolio! I\'m a young coder passionate about building awesome projects. Whether it\'s games, websites, or experimenting with new tech, I\'m always up for a challenge.',
+                    nl: 'Welkom op mijn portfolio! Ik ben een jonge programmeur met een passie voor het bouwen van gave projecten. Of het nu games, websites of experimenteren met nieuwe tech is, ik ga graag nieuwe uitdagingen aan.'
+                },
+                aboutMe: {
+                    en: '🧒 About Me',
+                    nl: '🧒 Over Mij'
+                },
+                techStack: {
+                    en: '🚀 My Tech Stack',
+                    nl: '🚀 Mijn Tech Stack'
+                },
+                contactMe: {
+                    en: '📫 Contact Me',
+                    nl: '📫 Contact Mij'
+                },
+                languages: {
+                    en: '😌 Languages',
+                    nl: '😌 Talen'
+                },
+                school: {
+                    en: '🏫 School',
+                    nl: '🏫 School'
+                },
+                schoolNote: {
+                    en: 'Busy with school, so responses may be slower than expected. I\'ll do my best to reply to messages, thank you for your patience!',
+                    nl: 'Druk met school, dus reacties kunnen wat langer duren dan verwacht. Ik doe mijn best om berichten te beantwoorden, bedankt voor je geduld!'
+                },
+                aboutList: {
+                    en: [
+                        '🌱 Currently learning <strong>Python</strong>',
+                        '🎮 Love making games & web projects',
+                        '🛠️ Exploring open-source and working on cool side projects',
+                        '💻 Big fan of <strong>AI, game dev, and creative coding</strong>',
+                        '📅 <strong>More than half a decade</strong> of programming experience'
+                    ],
+                    nl: [
+                        '🌱 Momenteel bezig met het leren van <strong>Python</strong>',
+                        '🎮 Hou van games & web projecten maken',
+                        '🛠️ Verken open-source en werk aan coole projecten',
+                        '💻 Grote fan van <strong>AI, game dev en creatief programmeren</strong>',
+                        '📅 <strong>Meer dan een half decennium</strong> programmeerervaring'
+                    ]
+                },
+                navLinks: {
+                    en: ['Projects', 'Journey', 'Socials', 'Personality', 'Gallery', 'Showcase'],
+                    nl: ['Projecten', 'Mijn Reis', 'Socials', 'Persoonlijkheid', 'Galerij', 'Showcase']
+                },
+                button: {
+                    en: 'Nederlands',
+                    nl: 'English'
+                },
+                bottomMessage: {
+                    en: 'There is nothing to see here...',
+                    nl: 'Er is hier niets te zien...'
+                }
+            };
+
+            const currentLang = isEnglish ? 'nl' : 'en';
+            
+            // Update navigation links
+            const navLinks = document.querySelectorAll('.project-link');
+            translations.navLinks[currentLang].forEach((text, index) => {
+                if (navLinks[index]) {  // Add this check to ensure the element exists
+                    navLinks[index].textContent = text;
+                }
+            });
+
+            // Update main content
+            document.querySelector('h1').innerHTML = translations.greeting[currentLang];
+            document.querySelector('h3').innerHTML = translations.subtitle[currentLang];
+            document.querySelector('.bg > p').innerHTML = translations.welcome[currentLang];
+            
+            // Update section headers
+            const h2Elements = document.querySelectorAll('h2');
+            h2Elements[0].textContent = translations.aboutMe[currentLang];
+            h2Elements[1].textContent = translations.techStack[currentLang];
+            h2Elements[2].textContent = translations.contactMe[currentLang];
+            
+            // Update about list
+            const aboutListItems = document.querySelectorAll('.about-list li');
+            translations.aboutList[currentLang].forEach((text, index) => {
+                aboutListItems[index].innerHTML = text;
+            });
+
+            // Update language section and school note
+            const h3Elements = document.querySelectorAll('h3');
+            h3Elements[1].textContent = translations.languages[currentLang];
+            h3Elements[2].textContent = translations.school[currentLang];
+            document.querySelector('.contact-info > p').textContent = translations.schoolNote[currentLang];
+            
+            // Update button text
+            document.querySelector('.language-toggle').textContent = translations.button[currentLang];
+
+            // Update bottom message
+            document.querySelector('.bottom-message').textContent = translations.bottomMessage[currentLang];
+        }
+
+        window.addEventListener('scroll', function() {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const currentScroll = window.scrollY;
+            const scrollPercentage = currentScroll / maxScroll;
+            const overlay = document.querySelector('.darkness-overlay');
+            
+            // Max opacity of 0.7 for the darkness
+            const opacity = Math.min(scrollPercentage * 0.7, 0.7);
+            overlay.style.background = `rgba(0, 0, 0, ${opacity})`;
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const bottomMessage = document.querySelector('.bottom-message');
+        observer.observe(bottomMessage);
+
+        window.onload = function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    </script>
+</body>
+</html>
